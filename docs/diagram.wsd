@@ -1,0 +1,23 @@
+@startuml
+title DDD - Feature Flags
+
+package "Domínio" {
+  class FeatureFlag <<Aggregate Root>>
+  class ToggleLog
+  FeatureFlag --> ToggleLog : logs
+}
+
+package "Contexto de Deploy" {
+  class Environment
+  class Project
+  Project --> Environment : has
+  FeatureFlag --> Project : belongs to
+  ToggleLog --> Environment : context
+}
+
+package "Infraestrutura" {
+  class User
+  ToggleLog --> User : changed by
+}
+
+@enduml

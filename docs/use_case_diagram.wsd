@@ -1,0 +1,31 @@
+﻿@startuml feature_flag_usecases
+title Caso de Uso - Gerenciamento de Feature Flags
+
+actor User
+
+(Criar Projeto)
+(Criar Ambiente)
+(Criar Feature Flag)
+(Agendar Ação para Flag)
+(Executar Ação Agendada)
+(Alterar Estado da Feature Flag)
+(Definir Regra de Rollout)
+(Logs de Alterações)
+(Consultar Estado da Flag)
+
+User --> (Criar Projeto)
+User --> (Criar Ambiente)
+User --> (Criar Feature Flag)
+User --> (Agendar Ação para Flag)
+User --> (Alterar Estado da Feature Flag)
+User --> (Definir Regra de Rollout)
+User --> (Logs de Alterações) : visualiza
+User --> (Consultar Estado da Flag)
+
+(Executar Ação Agendada) ..> (Alterar Estado da Feature Flag) : inclui
+(Alterar Estado da Feature Flag) ..> (Logs de Alterações) : inclui
+(Agendar Ação para Flag) ..> (Executar Ação Agendada) : roda
+(Definir Regra de Rollout) ..> (Alterar Estado da Feature Flag) : aplica
+
+
+@enduml

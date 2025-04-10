@@ -1,0 +1,87 @@
+@startuml feature_flag_sys
+title Sistema de Gerenciamento de Feature Flags
+
+class User {
+  (Django default fields)
+}
+
+enum EActionType {
+  ENABLE
+  DISABLE
+  TOGGLE
+}
+
+enum EStatus {
+  ENABLED
+  DISABLED
+  TOGGLED
+}
+
+
+class Project {
+  + id: UUID
+  + name: string
+  + description: string
+  + created_at: datetime
+  + updated_at: datetime
+}
+
+class Environment {
+  + id: UUID
+  + name: string
+  + project_id: UUID
+  + created_at: datetime
+  + updated_at: datetime
+}
+
+class FeatureFlag {
+  + id: UUID
+  + key: string
+  + state: EStatus
+  + description: string
+  + project_id: UUID
+  + created_at: datetime
+  + updated_at: datetime
+}
+
+class ToggleLog {
+  + id: UUID
+  + feature_flag_id: UUID
+  + user_id: UUID
+  + environment_id: UUID
+  + previous_state: EStatus
+  + new_state: EStatus
+  + timestamp: datetime
+}
+
+class RolloutRule {
+  + id: UUID
+  + percentage: int
+  + group_name: str
+  + active_from: datetime
+  + active_until: datetime
+  + feature_flag_id: UUID
+}
+
+class FlagScheduler {
+  + id: UUID
+  + feature_flag_id: UUID
+  + environment_id: UUID
+  + scheduled_time: datetime
+  + action: EActionType
+}
+
+
+User --> ToggleLog : toggles 1..*
+Project --> Environment : has 1..*
+Project --> FeatureFlag : manages 1..*
+Environment --> ToggleLog : context 1..*
+FeatureFlag --> EStatus : state
+FeatureFlag --> ToggleLog : logs 1..*
+FeatureFlag --> RolloutRule : defines 1..*
+FeatureFlag --> FlagScheduler : scheduled 1..*
+Environment --> FlagScheduler : applies to 1..*
+FlagScheduler --> EActionType : action
+ToggleLog --> EStatus : states
+
+@enduml
