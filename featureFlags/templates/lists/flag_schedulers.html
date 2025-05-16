@@ -1,0 +1,66 @@
+﻿{% extends "paginasweb/index.html" %}
+{% load static %}
+{% load tz %}
+
+{% block header %}
+<div class="container mt-5">
+  <h2 class="fw-bold">Agendamentos de Flags</h2>
+  <p class="text-muted">Programe quando as feature flags serão ativadas ou desativadas</p>
+</div>
+{% endblock %}
+
+{% block conteudo %}
+<div class="container mt-3">
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Flag</th>
+            <th>Ambiente</th>
+            <th>Horário</th>
+            <th>Ação</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          {% timezone "America/Sao_Paulo" %}
+          <tr>
+            <td class="ps-4">{{ object.feature_flag.key }}</td>
+            <td>{{ object.environment.name }}</td>
+            <td>{{ object.scheduled_time|date:"d/m/Y H:i" }}</td>
+            <td>
+              {% if object.action == 'ENABLE' %}
+                <span class="badge bg-success">Ativar</span>
+              {% elif object.action == 'DISABLE' %}
+                <span class="badge bg-danger">Desativar</span>
+              {% else %}
+                <span class="badge bg-secondary">Outro</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a href="{% url 'flag_scheduler_update' object.pk %}" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="{% url 'flag_scheduler_delete' object.pk %}" class="btn btn-sm btn-outline-danger" title="Excluir">
+                <i class="bi bi-trash3"></i>
+              </a>
+            </td>
+          </tr>
+          {% endtimezone %}
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center text-muted py-4">Nenhum agendamento cadastrado.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <a href="{% url 'flag_scheduler_create' %}" class="btn btn-primary btn-lg rounded-circle position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center shadow" style="width: 60px; height: 60px;">
+    <i class="bi bi-plus-lg fs-4"></i>
+  </a>
+</div>
+{% endblock %}

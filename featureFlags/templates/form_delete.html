@@ -1,0 +1,15 @@
+﻿{% extends "paginasweb/index.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+  <div class="container mt-5">
+    <h2 class="mb-4">{{ titulo }}</h2>
+
+    <form method="post">
+      {% csrf_token %}
+        {{ delete_form|crispy }}
+      <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+    </form>
+  </div>
+{% endblock %}

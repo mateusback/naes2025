@@ -1,0 +1,73 @@
+﻿{% extends "paginasweb/index.html" %}
+{% load static %}
+{% load tz %}
+
+{% block header %}
+<div class="container mt-5">
+  <h2 class="fw-bold">Regras de Rollout</h2>
+  <p class="text-muted">Defina regras específicas para ativar suas feature flags</p>
+</div>
+{% endblock %}
+
+{% block conteudo %}
+<div class="container mt-3">
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Grupo</th>
+            <th>Percentual</th>
+            <th>Flag</th>
+            <th>Período</th>
+            <th>Status</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          {% timezone "America/Sao_Paulo" %}
+            {% now "Y-m-d H:i" as agora %}
+            {% with object.active_from|date:"Y-m-d H:i" as inicio %}
+            {% with object.active_until|date:"Y-m-d H:i" as fim %}
+          <tr>
+            <td class="ps-4">{{ object.group_name }}</td>
+            <td>{{ object.percentage }}%</td>
+            <td>{{ object.feature_flag.key }}</td>
+            <td>{{ object.active_from|date:"d/m/Y H:i" }} - {{ object.active_until|date:"d/m/Y H:i" }}</td>
+            <td>
+              {% if fim < agora %}
+                <span class="badge bg-danger">Expirada</span>
+              {% elif inicio > agora %}
+                <span class="badge bg-warning text-dark">Agendada</span>
+              {% else %}
+                <span class="badge bg-success">Ativa</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a href="{% url 'rollout_rule_update' object.pk %}" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="{% url 'rollout_rule_delete' object.pk %}" class="btn btn-sm btn-outline-danger" title="Excluir">
+                <i class="bi bi-trash3"></i>
+              </a>
+            </td>
+          </tr>
+            {% endwith %}
+            {% endwith %}
+          {% endtimezone %}
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center text-muted py-4">Nenhuma regra encontrada.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <a href="{% url 'rollout_rule_create' %}" class="btn btn-primary btn-lg rounded-circle position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center shadow" style="width: 60px; height: 60px;">
+    <i class="bi bi-plus-lg fs-4"></i>
+  </a>
+</div>
+{% endblock %}

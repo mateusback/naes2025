@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import PaginaInicial, SobreView
+from .views import PaginaInicial, SobreView, DashboardView
 
 urlpatterns = [
-    path("", PaginaInicial.as_view(), name="index"),
+    path("", DashboardView.as_view(), name="index"),
     path("sobre/", SobreView.as_view(), name="sobre"),
 ]
