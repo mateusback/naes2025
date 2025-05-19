@@ -1,3 +1,61 @@
-*{
-    padding: 0%;
+:root{
+  --primary: #537d5d;
+  --secondary: #73946b;
+  --success: #9ebc8a;
+  --accent: #c8ad7d;
+  --background: #1e1e1e;
+  --background-alt: #d0a870;
+  --background-secondary: #fbf7f2;
+  --text: #131010;
+  --text-secondary: #fbf7f2;
+  --danger: #8a1515;
+}
+
+body {
+  background-color: var(--background-secondary);
+  color: var(--text);
+}
+
+.card-header.bg-primary {
+  background-color: var(--primary) !important;
+  color: var(--text);
+}
+
+.btn-successo {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: #1e1e1e;
+}
+
+.btn-successo:hover {
+  background-color: #8eb47c;
+}
+
+.btn-principal {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
+
+.bg-danger {
+  background-color: var(--danger) !important;
+  color: var(--text-secondary) !important;
+}
+
+.btn-secondary{
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+    background-color: #5c7557;
+}
+
+.bg-principal {
+  background-color: var(--primary) !important;
+  color: var(--text) !important;
 }
