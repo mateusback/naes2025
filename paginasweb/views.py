@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from featureFlags.models import Project, FeatureFlag, FlagScheduler
 from django.utils.timezone import now
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class LoginView(TemplateView):
@@ -50,7 +51,7 @@ def logout_view(request):
     return redirect("login")
 
 
-class PaginaInicial(TemplateView):
+class PaginaInicial(LoginRequiredMixin, TemplateView):
     template_name = 'paginasweb/index.html'
 
     def get_context_data(self, **kwargs):
@@ -59,7 +60,7 @@ class PaginaInicial(TemplateView):
         return context
 
 
-class SobreView(TemplateView):
+class SobreView(LoginRequiredMixin, TemplateView):
     template_name = 'paginasweb/sobre.html'
 
 

@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     fields = ['name', 'description']
     template_name = 'form_dynamic.html'
@@ -20,7 +21,7 @@ class ProjectCreateView(CreateView):
         return super().form_valid(form)
 
 
-class EnvironmentCreateView(CreateView):
+class EnvironmentCreateView(LoginRequiredMixin, CreateView):
     model = Environment
     fields = ['name', 'project']
     template_name = 'form_dynamic.html'
@@ -34,7 +35,7 @@ class EnvironmentCreateView(CreateView):
         return super().form_valid(form)
 
 
-class FeatureFlagCreateView(CreateView):
+class FeatureFlagCreateView(LoginRequiredMixin, CreateView):
     model = FeatureFlag
     fields = ['key', 'state', 'description', 'project']
     template_name = 'form_dynamic.html'
@@ -48,7 +49,7 @@ class FeatureFlagCreateView(CreateView):
         return super().form_valid(form)
 
 
-class RolloutRuleCreateView(CreateView):
+class RolloutRuleCreateView(LoginRequiredMixin, CreateView):
     model = RolloutRule
     fields = ['percentage', 'group_name', 'active_from', 'active_until', 'feature_flag']
     template_name = 'form_dynamic.html'
@@ -62,7 +63,7 @@ class RolloutRuleCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ToggleLogCreateView(CreateView):
+class ToggleLogCreateView(LoginRequiredMixin, CreateView):
     model = ToggleLog
     fields = ['feature_flag', 'user_id', 'environment', 'previous_state', 'new_state']
     template_name = 'form_dynamic.html'
@@ -72,7 +73,7 @@ class ToggleLogCreateView(CreateView):
     }
 
 
-class FlagSchedulerCreateView(CreateView):
+class FlagSchedulerCreateView(LoginRequiredMixin, CreateView):
     model = FlagScheduler
     fields = ['feature_flag', 'environment', 'scheduled_time', 'action']
     template_name = 'form_dynamic.html'
@@ -87,7 +88,7 @@ class FlagSchedulerCreateView(CreateView):
 
 
 #### Update Views
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
     fields = ['name', 'description']
     template_name = 'form_dynamic.html'
@@ -101,7 +102,7 @@ class ProjectUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class EnvironmentUpdateView(UpdateView):
+class EnvironmentUpdateView(LoginRequiredMixin, UpdateView):
     model = Environment
     fields = ['name', 'project']
     template_name = 'form_dynamic.html'
@@ -116,7 +117,7 @@ class EnvironmentUpdateView(UpdateView):
 
 
 
-class FeatureFlagUpdateView(UpdateView):
+class FeatureFlagUpdateView(LoginRequiredMixin, UpdateView):
     model = FeatureFlag
     fields = ['key', 'state', 'description', 'project']
     template_name = 'form_dynamic.html'
@@ -149,7 +150,7 @@ class FeatureFlagUpdateView(UpdateView):
         return response
 
 
-class ToggleLogUpdateView(UpdateView):
+class ToggleLogUpdateView(LoginRequiredMixin, UpdateView):
     model = ToggleLog
     fields = ['feature_flag', 'user_id', 'environment', 'previous_state', 'new_state']
     template_name = 'form_dynamic.html'
@@ -159,7 +160,7 @@ class ToggleLogUpdateView(UpdateView):
     }
 
 
-class RolloutRuleUpdateView(UpdateView):
+class RolloutRuleUpdateView(LoginRequiredMixin, UpdateView):
     model = RolloutRule
     fields = ['percentage', 'group_name', 'active_from', 'active_until', 'feature_flag']
     template_name = 'form_dynamic.html'
@@ -173,7 +174,7 @@ class RolloutRuleUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class FlagSchedulerUpdateView(UpdateView):
+class FlagSchedulerUpdateView(LoginRequiredMixin, UpdateView):
     model = FlagScheduler
     fields = ['feature_flag', 'environment', 'scheduled_time', 'action']
     template_name = 'form_dynamic.html'
@@ -187,42 +188,42 @@ class FlagSchedulerUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('project_list')
     extra_context = {'titulo': 'Projeto'}
 
 
-class EnvironmentDeleteView(DeleteView):
+class EnvironmentDeleteView(LoginRequiredMixin, DeleteView):
     model = Environment
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('environment_list')
     extra_context = {'titulo': 'Ambiente'}
 
 
-class FeatureFlagDeleteView(DeleteView):
+class FeatureFlagDeleteView(LoginRequiredMixin, DeleteView):
     model = FeatureFlag
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('feature_flag_list')
     extra_context = {'titulo': 'Feature Flag'}
 
 
-class RolloutRuleDeleteView(DeleteView):
+class RolloutRuleDeleteView(LoginRequiredMixin, DeleteView):
     model = RolloutRule
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('rollout_rule_list')
     extra_context = {'titulo': 'Regra de Rollout'}
 
 
-class ToggleLogDeleteView(DeleteView):
+class ToggleLogDeleteView(LoginRequiredMixin, DeleteView):
     model = ToggleLog
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('toggle_log_list')
     extra_context = {'titulo': 'Log de Alteração'}
 
 
-class FlagSchedulerDeleteView(DeleteView):
+class FlagSchedulerDeleteView(LoginRequiredMixin, DeleteView):
     model = FlagScheduler
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('flag_scheduler_list')
@@ -230,7 +231,7 @@ class FlagSchedulerDeleteView(DeleteView):
 
 
 #### List Views
-class ProjectListView(ListView):
+class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = 'lists/projects.html'
     context_object_name = 'projects'
@@ -253,7 +254,7 @@ class ProjectListView(ListView):
         return context
 
 
-class EnvironmentListView(ListView):
+class EnvironmentListView(LoginRequiredMixin, ListView):
     model = Environment
     template_name = 'lists/environments.html'
     context_object_name = 'environments'
@@ -279,7 +280,7 @@ class EnvironmentListView(ListView):
         context['selected_project'] = self.request.GET.get('project', '')
         return context
 
-class FeatureFlagListView(ListView):
+class FeatureFlagListView(LoginRequiredMixin, ListView):
     model = FeatureFlag
     template_name = 'lists/feature_flags.html'
     context_object_name = 'feature_flags' # Mudei para ser mais descritivo
@@ -311,7 +312,7 @@ class FeatureFlagListView(ListView):
         return context
 
 
-class RolloutRuleListView(ListView):
+class RolloutRuleListView(LoginRequiredMixin, ListView):
     model = RolloutRule
     template_name = 'lists/rollout_rules.html'
     context_object_name = 'rollout_rules'
@@ -349,7 +350,7 @@ class RolloutRuleListView(ListView):
         return context
 
 
-class ToggleLogListView(ListView):
+class ToggleLogListView(LoginRequiredMixin, ListView):
     model = ToggleLog
     template_name = 'lists/toggle_logs.html'
     context_object_name = 'toggle_logs'
@@ -396,7 +397,7 @@ class ToggleLogListView(ListView):
         return context
 
 
-class FlagSchedulerListView(ListView):
+class FlagSchedulerListView(LoginRequiredMixin, ListView):
     model = FlagScheduler
     template_name = 'lists/flag_schedulers.html'
     context_object_name = 'schedulers'
