@@ -75,10 +75,10 @@ class FlagScheduler {
 User --> ToggleLog : toggles 1..*
 Project --> Environment : has 1..*
 Project --> FeatureFlag : manages 1..*
-Environment --> ToggleLog : context 1..*
-FeatureFlag --> EStatus : state
-FeatureFlag --> ToggleLog : logs 1..*
-FeatureFlag --> RolloutRule : defines 1..*
+Environment -- ToggleLog : context 1..*
+FeatureFlag -- EStatus : state
+FeatureFlag -- ToggleLog : logs 1..*
+FeatureFlag -- RolloutRule : defines 1..*
 FeatureFlag --> FlagScheduler : scheduled 1..*
 Environment --> FlagScheduler : applies to 1..*
 FlagScheduler --> EActionType : action

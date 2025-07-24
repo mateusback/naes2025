@@ -1,9 +1,29 @@
 ﻿{% extends "paginasweb/modelos/index.html" %}
+{% load static %}
 
 {% block conteudo %}
-    <h1>Sobre Nós</h1>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda atque aut autem cumque debitis deleniti minima numquam quia sit voluptas? Dignissimos, doloribus eius eveniet impedit laborum quasi suscipit unde voluptatum.
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="mb-4">Sobre o Projeto</h1>
+        <p>
+          Este projeto é um sistema completo de <strong>gerenciamento de Feature Flags</strong>, permitindo que equipes de desenvolvimento ativem ou desativem funcionalidades de forma dinâmica em diferentes ambientes (produção, homologação, etc). Com ele, é possível definir regras de rollout, agendar ações, manter rastreabilidade por meio de logs e aplicar mudanças de forma gradual.
+        </p>
+
+        <p>
+          O sistema foi desenvolvido com <strong>Django</strong> e segue boas práticas de arquitetura, com separação clara de responsabilidades entre projetos, ambientes, flags, regras de ativação e agendamentos.
+        </p>
+
+        <hr class="my-4">
+
+        <h3>Diagrama de Casos de Uso</h3>
+        <p>O diagrama abaixo ilustra as principais ações disponíveis ao usuário dentro do sistema:</p>
+        <img src="{% static 'use_case.png' %}" class="img-fluid border rounded mb-4" alt="Diagrama de Casos de Uso">
+
+        <h3>Diagrama de Classes</h3>
+        <p>Este diagrama mostra a estrutura das entidades principais e seus relacionamentos:</p>
+        <img src="{% static 'class.png' %}" class="img-fluid border rounded" alt="Diagrama de Classes">
+      </div>
+    </div>
+  </div>
 {% endblock %}
-
-
-{% load static %}
