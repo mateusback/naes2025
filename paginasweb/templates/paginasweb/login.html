@@ -4,66 +4,226 @@
 <head>
   <meta charset="UTF-8">
   <title>Login | FlagManager</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* -------------------
+       Estilos Gerais
+    ------------------- */
     body {
-      background-color: #f8f9fa;
+      /* Fundo com gradiente suave e moderno */
+      background: linear-gradient(135deg, #e0f7fa 0%, #d8e6ff 100%);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
     }
+
+    /* -------------------
+       Container do Login
+    ------------------- */
     .login-container {
-      max-width: 400px;
-      margin: 100px auto;
-      padding: 2rem;
-      border-radius: 10px;
-      background-color: white;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 430px;
+      width: 100%;
+      padding: 3rem;
+      border-radius: 20px;
+      /* Efeito "vidro fosco" para um toque moderno */
+      background-color: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* -------------------
+       Logo e Cabeçalho
+    ------------------- */
+    .logo-container {
+      margin-bottom: 2rem;
+    }
+
     .logo-icon {
-      font-size: 2rem;
-      color: black;
+      font-size: 2.5rem;
+      /* Gradiente de cor no ícone */
+      background: linear-gradient(45deg, #28a745, #20c997);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
+
+    .login-container h3 {
+      font-weight: 700;
+      color: #343a40;
+    }
+
+    .login-container .form-header {
+      font-weight: 600;
+      color: #495057;
+    }
+
+    /* -------------------
+       Campos do Formulário
+    ------------------- */
+    .input-group-custom {
+      position: relative;
+    }
+
+    .input-group-custom .form-control {
+      padding-left: 2.75rem; /* Espaço para o ícone */
+      border-radius: 12px;
+      border: 1px solid #ced4da;
+      height: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group-custom .form-control:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.2);
+    }
+
+    .input-group-custom .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #adb5bd;
+      transition: color 0.3s ease;
+    }
+
+    .input-group-custom .form-control:focus + .input-icon {
+      color: #28a745;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    /* -------------------
+       Botão de Login
+    ------------------- */
+    .btn-login {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      padding: 0.8rem 0;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(40, 167, 69, 0.25);
+      color: white;
+    }
+
+    /* -------------------
+       Links e Rodapé
+    ------------------- */
+    .link-custom {
+      color: #28a745;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .link-custom:hover {
+      color: #20c997;
+      text-decoration: underline;
+    }
+
+    /* -------------------
+       Toast de Alerta
+    ------------------- */
+    .toast-container {
+      z-index: 1100;
+    }
+
+    /* Estilo para mensagens de erro */
+    .toast.toast-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: none;
+      border-left: 5px solid #d9534f;
+    }
+
   </style>
 </head>
 <body>
 
 <div class="login-container">
-  <div class="text-center mb-4">
+  <div class="text-center logo-container">
     <div class="d-flex justify-content-center align-items-center gap-2">
       <i class="bi bi-flag-fill logo-icon"></i>
-      <h3 class="fw-bold mb-0">FlagManager</h3>
+      <h3>FlagManager</h3>
     </div>
     <small class="text-muted">Gerencie suas feature flags com eficiência</small>
   </div>
 
-  <h4 class="mb-3 text-center">Login</h4>
+  <h4 class="mb-4 text-center form-header">Faça login em sua conta</h4>
 
   <form method="POST">
     {% csrf_token %}
     <div class="mb-3">
       <label for="username" class="form-label">Usuário</label>
-      <input type="text" name="username" id="username" class="form-control" placeholder="Digite seu usuário" required>
+      <div class="input-group-custom">
+        <input type="text" name="username" id="username" class="form-control" placeholder="Digite seu usuário" required>
+        <i class="bi bi-person input-icon"></i>
+      </div>
     </div>
-    <div class="mb-3">
+    <div class="mb-4">
       <label for="senha" class="form-label">Senha</label>
-      <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha" required>
+      <div class="input-group-custom">
+        <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha" required>
+        <i class="bi bi-lock input-icon"></i>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    <button type="submit" class="btn btn-login w-100">Entrar</button>
   </form>
 
-  <div class="mt-3 text-center">
-    <a href="{% url 'signup' %}">Não tem conta? Cadastre-se</a>
+  <div class="mt-4 text-center">
+    <small class="text-muted">Não tem uma conta? <a href="{% url 'signup' %}" class="link-custom">Cadastre-se</a></small>
   </div>
+</div>
 
+<div class="position-fixed top-0 end-0 p-3 toast-container">
   {% if messages %}
-    <div class="mt-3">
-      {% for message in messages %}
-        <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+    <div class="toast toast-error align-items-center show border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
           {{ message }}
         </div>
-      {% endfor %}
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
     </div>
+    {% endfor %}
   {% endif %}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Inicializa os toasts para que desapareçam automaticamente
+  const toastElList = document.querySelectorAll('.toast');
+  const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { delay: 5000 }));
+  toastList.forEach(toast => toast.show());
+</script>
 
 </body>
 </html>

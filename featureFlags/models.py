@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 import uuid
 
 class EActionType(models.TextChoices):
@@ -12,9 +13,9 @@ class EActionType(models.TextChoices):
 
 
 class EStatus(models.TextChoices):
-    ENABLED = 'ENABLED', 'Enabled'
-    DISABLED = 'DISABLED', 'Disabled'
-    TOGGLED = 'TOGGLED', 'Toggled'
+    ENABLED = 'ENABLED', 'Ativada'
+    DISABLED = 'DISABLED', 'Desativada'
+    TOGGLED = 'TOGGLED', 'Alternada'
 
     def __str__(self):
         return self.name
@@ -191,8 +192,11 @@ class ToggleLog(models.Model):
         verbose_name="Feature Flag",
         help_text="Flag que teve o estado alterado"
     )
-    user_id = models.UUIDField(
-        verbose_name="ID do Usuário",
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Usuário",
         help_text="Usuário que realizou a alteração"
     )
     environment = models.ForeignKey(

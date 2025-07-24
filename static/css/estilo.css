@@ -31,11 +31,6 @@ body {
   background-color: #8eb47c;
 }
 
-.btn-principal {
-  background-color: var(--primary);
-  border-color: var(--primary);
-}
-
 .btn-danger {
   background-color: var(--danger);
   border-color: var(--danger);

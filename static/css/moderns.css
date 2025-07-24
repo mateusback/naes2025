@@ -1,0 +1,195 @@
+﻿/*-------------------------------------------*\
+    #VARIÁVEIS GLOBAIS E ESTILO DO BODY
+\*-------------------------------------------*/
+:root {
+  --primary-color: #0d6efd;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --light-gray: #f8f9fe;
+  --border-color: #e9ecef;
+  --text-color: #5a5c69;
+  --text-color-light: #858796;
+  --border-radius: 0.75rem; /* 12px */
+}
+
+body {
+  background-color: var(--light-gray);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+}
+
+/*-------------------------------------------*\
+    #COMPONENTES DO DASHBOARD (Cards, etc)
+\*-------------------------------------------*/
+.card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08);
+}
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: #343a40;
+}
+.badge.rounded-pill {
+  font-size: 0.8em;
+  font-weight: 500;
+  padding: 0.5em 1em;
+}
+
+/*-------------------------------------------*\
+    #ESTILOS PARA PÁGINAS DE LISTA (Tabelas)
+\*-------------------------------------------*/
+.card-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: var(--light-gray);
+}
+
+.table thead th {
+  font-weight: 600;
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  vertical-align: middle;
+  padding: 1rem 1.5rem;
+  color: var(--text-color);
+}
+
+.table tbody td:first-child {
+  font-weight: 600;
+  color: #343a40;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.empty-state {
+  padding: 4rem;
+}
+
+.log-state-change {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.action-buttons {
+  white-space: nowrap;
+}
+
+.action-buttons a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease-in-out;
+}
+
+/* BOTÃO EDITAR */
+.action-buttons a[href*="update"] {
+  color: #f39c12;
+}
+.action-buttons a[href*="update"]:hover {
+  background-color: rgba(243, 156, 18, 0.1);
+  color: #d88c0a;
+}
+
+/* BOTÃO APAGAR */
+.action-buttons a[href*="delete"] {
+  color: #e74c3c;
+}
+.action-buttons a[href*="delete"]:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #c0392b;
+}
+
+.btn-principal {
+  background: #2ee1aa !important;
+  border: none !important;
+  transition: all 0.3s ease;
+}
+.btn-principal:hover {
+  background: #1baa80 !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+}
+
+.delete-card .card-body {
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.delete-icon {
+  font-size: 3rem;
+  color: var(--danger-color);
+  margin-bottom: 1rem;
+}
+
+.delete-text {
+  color: var(--text-color-light);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deleted-object-name {
+  font-weight: 600;
+  color: var(--danger-color);
+  background-color: rgba(220, 53, 69, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.ff-card .form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.ff-card .form-control,
+.ff-card .form-select {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.ff-card .form-control:focus,
+.ff-card .form-select:focus {
+  border-color: #20c997;
+  box-shadow: 0 0 0 0.25rem rgba(32, 201, 151, 0.25);
+}
+
+.ff-card .form-text {
+  font-size: 0.875em;
+  color: #6c757d;
+}
+
+.ff-card .form-check-input:checked {
+  background-color: #20c997;
+  border-color: #20c997;
+}
